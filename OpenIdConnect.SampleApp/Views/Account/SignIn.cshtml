@@ -1,0 +1,32 @@
+﻿@using System.IdentityModel.Tokens.Jwt
+@using OpenIdConnect.SampleApp.Models.Account
+@{
+    ViewData["Title"] = "Sign In";
+
+    var idToken = this.ViewData["IdToken"] as JwtSecurityToken;
+    var userInfo = this.ViewData["UserInfo"] as UserInfo;
+}
+
+<div class="text-center">
+    <h1 class="display-4">로그인 성공</h1>
+    <div class="col-12 text-center">
+        <table border="1">
+            <tr>
+                <td>이름</td>
+                <td>@userInfo.Name</td>
+            </tr>
+            <tr>
+                <td>ID</td>
+                <td>@userInfo.Id</td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td>@userInfo.Email</td>
+            </tr>
+            <tr>
+                <td>사번</td>
+                <td>@userInfo.Sabun</td>
+            </tr>
+        </table>
+    </div>
+</div>

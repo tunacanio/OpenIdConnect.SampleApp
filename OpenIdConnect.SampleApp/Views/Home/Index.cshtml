@@ -1,0 +1,83 @@
+﻿@using System.Security.Claims
+@using OpenIdConnect.SampleApp.Models.Home
+@model HomeModel
+@{
+    ViewData["Title"] = "OpenIdConnect.SampleApp";
+
+    var user = this.User;
+}
+
+<div class="text-center">
+    
+    <div class="mt-5">
+        @if (this.User.Identity.IsAuthenticated != true)
+        {
+            <h1 class="display-4">로그인 하세요.</h1>
+            <hr />
+            <a asp-action="SignIn" asp-controller="Account" class="btn btn-primary btn-lg">로그인</a>
+        }
+        else
+        {
+            <h1 class="display-4">로그인 성공!</h1>
+            <hr />
+            <a asp-action="LogOut" asp-controller="Account" class="btn btn-outline-primary btn-lg">로그아웃</a>
+
+            <div class="mt-5">
+                <h2>로그인 사용자</h2>
+                <table class="table mt-3">
+                    <thead>
+                        <tr>
+                            <th scope="col">속성</th>
+                            <th scope="col">값</th>
+                        </tr>
+                    </thead>
+                    <tr>
+                        <td>이름</td>
+                        <td>@user.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Name).Value</td>
+                    </tr>
+                    <tr>
+                        <td>ID</td>
+                        <td>@user.Claims.FirstOrDefault(x => x.Type == "id").Value</td>
+                    </tr>
+                    <tr>
+                        <td>Email</td>
+                        <td>@user.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Email).Value</td>
+                    </tr>
+                    <tr>
+                        <td>사번</td>
+                        <td>@user.Claims.FirstOrDefault(x => x.Type == "sabun")?.Value</td>
+                    </tr>
+                </table>
+            </div>
+        }
+    </div>
+    <div class="mt-5">
+        <h3>설정 정보</h3>
+        <table class="table">
+            <tr>
+                <td>Authorize Uri</td>
+                <td>@Model.AuthorizeUri</td>
+            </tr>
+            <tr>
+                <td>Token Uri</td>
+                <td>@Model.TokenUri</td>
+            </tr>
+            <tr>
+                <td>Client ID</td>
+                <td>@Model.ClientId</td>
+            </tr>
+            <tr>
+                <td>Client Secret</td>
+                <td>@Model.ClientSecret</td>
+            </tr>
+            <tr>
+                <td>Redirect Uri</td>
+                <td>@Model.RedirectUri</td>
+            </tr>
+            <tr>
+                <td>Scope</td>
+                <td>@Model.Scope</td>
+            </tr>
+        </table>
+    </div>
+</div>
